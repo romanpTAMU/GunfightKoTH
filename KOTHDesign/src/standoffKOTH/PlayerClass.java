@@ -1,6 +1,7 @@
 package standoffKOTH;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -13,6 +14,7 @@ public class PlayerClass implements Comparable<PlayerClass> {
 	private int speed;
 	private int ammo;
 	private List<PlayerClass> playerList;
+	private List<PlayerClass> shotYouList;
 	private PlayerClass lastShotBy;
 	private PlayerClass lastShotAt;
 	private Random rand = new Random();
@@ -89,6 +91,11 @@ public class PlayerClass implements Comparable<PlayerClass> {
 		}
 		return out;
 	}//Find out who's left alive. Very useful.
+	protected List<PlayerClass> getWhoShotYou()
+	{
+		Collections.shuffle(shotYouList);
+		return shotYouList;
+	}
 	private int shoot(PlayerClass p)
 	{
 		if(ammo>0) {ammo--;lastShotAt=p;return p.takeDamage(this);} else {return 0;}
@@ -100,10 +107,12 @@ public class PlayerClass implements Comparable<PlayerClass> {
 		double b = rand.nextDouble();
 		if(b<dex) {dmg=0;}else{dmg=rand.nextInt(3)+1;}//Check to see if dodged.
 		if(rand.nextDouble()<armor) {if(dmg!=0) {dmg--;}}hp-=dmg;//Check for armor.
+		if(dmg>0){shotYouList.add(p);}
 		return dmg;
 		}//Get hit by someone.
 	protected int move(char action, PlayerClass p)
 	{
+		shotYouList.clear();
 		if(hp>0) {
 			if(action =='r')
 			{reload();return ammo;}

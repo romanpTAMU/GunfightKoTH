@@ -14,7 +14,7 @@ public class PlayerClass implements Comparable<PlayerClass> {
 	private int speed;
 	private int ammo;
 	private List<PlayerClass> playerList;
-	private List<PlayerClass> shotYouList;
+	private List<PlayerClass> shotYouList = new ArrayList<PlayerClass>();
 	private PlayerClass lastShotBy;
 	private PlayerClass lastShotAt;
 	private Random rand = new Random();

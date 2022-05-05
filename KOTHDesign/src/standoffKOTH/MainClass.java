@@ -27,7 +27,8 @@ public class MainClass {
 				new ChargeBot(),
 				new FriendlyAndHealthyBot(),
 				new WhatABot(),
-				new StrategicBot()
+				new StrategicBot(),
+				new FocusFireBot()
 		}; //Define a list of all the bots.
 		for (PlayerClass j:initialBots) {
 			scoreSaver.put(j.getClass(), 0);
@@ -49,7 +50,8 @@ public class MainClass {
 					new ChargeBot(),
 					new FriendlyAndHealthyBot(),
 					new WhatABot(),
-					new StrategicBot()
+					new StrategicBot(),
+					new FocusFireBot()
 			}; //Initialize the bots for the fight. Can't use the ones from above because they need to reset.
 			List<PlayerClass> players = new ArrayList<PlayerClass>(); //Get players in list form.
 			List<Boolean> botsDead = new ArrayList<Boolean>(); //Who's dead?

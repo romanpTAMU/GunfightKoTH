@@ -11,14 +11,21 @@ public class FocusFireBot extends PlayerClass {
     private PlayerClass focusTarget;
     private Map<PlayerClass, Integer> targetedBy = new HashMap<PlayerClass, Integer>();
     private List<PlayerClass> targetedLastRound = new ArrayList<PlayerClass>();
+    protected int move = 0;
+    private int movesPerRound = 250;
 
     public FocusFireBot() {
-        super(2, 0, 8, 0);
+        super(0, 0, 10, 0);
     }
 
     protected int makeMove() {
+        move++;
         if (deadQ()) {
             return 0;
+        }
+        // fully heal
+        if (getHP() < getMaxHP()) {
+            return this.move('h', this);
         }
         if (focusTarget != null && focusTarget.deadQ()) {
             focusTarget = null;
@@ -39,6 +46,9 @@ public class FocusFireBot extends PlayerClass {
             focusTarget = aliveEnemies.get(0);
         } else {
             // if someone shot us twice in a row, we set him as target
+            // if (getShotBy() != null && !getShotBy().deadQ()) {
+            // focusTarget = getShotBy();
+            // }
             List<PlayerClass> targetedThisRound = getWhoShotYou();
             for (PlayerClass player : targetedThisRound) {
                 if (!player.deadQ()) {
@@ -62,10 +72,12 @@ public class FocusFireBot extends PlayerClass {
 
         // fully heal
         if (getHP() < getMaxHP()) {
+            // if (getHP() < getMaxHP() && move < 240) {
             return this.move('h', this);
         }
         // get enought ammo to sustain focused fire
-        if (getAmmo() < 50) {
+        // if (getAmmo() < 50) {
+        if (getAmmo() < 50 && getAmmo() + move < movesPerRound) {
             return this.move('r', this);
         }
 

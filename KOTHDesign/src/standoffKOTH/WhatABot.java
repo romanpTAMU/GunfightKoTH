@@ -41,7 +41,7 @@ public class WhatABot extends PlayerClass {
                     if (bot.isInstance(immediateTarget)) {
                         if (getHP() < getMaxHP()) {
                             return this.move('h', this);
-                        } else if (getAmmo() < 26) {
+                        } else if (getAmmo() < 40) {
                             return this.move('r', this);
                         }
                     }
@@ -70,20 +70,20 @@ public class WhatABot extends PlayerClass {
         if (getHP() < 15) {
             return this.move('h', this);
         }
-        if (getAmmo() < 6) {
+        if (getAmmo() < 10) {
             return this.move('r', this);
         }
         if (getHP() < getMaxHP()) {
             return this.move('h', this);
         }
-        if (getAmmo() < 16) {
+        if (getAmmo() < 20) {
             return this.move('r', this);
         }
 
 
         // kill fast players first
         PlayerClass target = getAliveEnemies().get(0);
-        if (target.getSpeed() <= this.getSpeed() && getAmmo() < 20) {
+        if (target.getSpeed() <= this.getSpeed() && getAmmo() < 30) {
             return this.move('r', target);
         }
         shot.add(target);
